@@ -25,6 +25,7 @@
 </div>
 
 <!-- Header -->
+<br/><br/><br/>
 <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
   <img class="w3-image" src="./architect_files/architect.jpg" alt="Architecture" width="1500" height="800">
   <div class="w3-display-middle w3-margin-top w3-center">
@@ -55,7 +56,7 @@
 
                 else
                 {
-					$sel = "select * from projects LIMIT 8";
+					$sel = "select * from projects ORDER BY RAND() LIMIT 8 ";
 					$i = 0;
 					$run_user = mysqli_query($con, $sel);
 					if (mysqli_num_rows($run_user) > 0) 
