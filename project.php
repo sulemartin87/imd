@@ -32,7 +32,7 @@
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-wide w3-padding w3-card-2">
-    <a href="index.php" class="w3-bar-item w3-button"><b>IMD</b>  Architects</a>
+    <a href="index.php" class="w3-bar-item w3-button"><b>IMD</b>  Architects home</a>
     <!-- Float links to the right. Hide them on small screens -->
     <div class="w3-right ">
       <a href="projects.php" class="w3-bar-item w3-button">Projects</a>
@@ -54,8 +54,9 @@
 			echo '<br/><br/><h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">'.$_GET['project_name'].'</h3>';
 	
 			echo '<div class="w3-content w3-display-container" style="max-width:800px">';
-	
-			if ($handle = opendir('Projects\\'.$_GET['project_name'].'\images')) 
+			$dir1 = 'Projects/'.$_GET['project_name'].'/images';
+			if (is_dir($dir1)) {
+					if ($handle = opendir('Projects/'.$_GET['project_name'].'/images')) 
 			{
 				while (false !== ($entry = readdir($handle))) 
 				{
@@ -65,7 +66,9 @@
 					}
 				}
 				closedir($handle);
-			}	
+			}
+			}
+			
 		?>
  
 	<div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
@@ -73,7 +76,11 @@
     <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
 	
 		<?php
-			if ($handle = opendir('Projects\\'.$_GET['project_name'].'\images')) 
+		
+			$dir = 'Projects/'.$_GET['project_name'].'/images';
+			if (is_dir($dir) )
+			{
+				if ($handle = opendir('Projects/'.$_GET['project_name'].'/images')) 
 			{
 				$i = 1;
 				while (false !== ($entry = readdir($handle))) 
@@ -88,7 +95,11 @@
 				$i++;
 				}
 				closedir($handle);
+			}else {
+				echo 'property has not been added yet';
 			}
+			}
+			
 	  ?>
     
 	</div>
@@ -106,11 +117,13 @@
 		}
 
 		xml_set_character_data_handler($parser, "char");
-		$filename = "projects/" .$_GET['project_name']. "/details.xml";
+		$filename = 'Projects/' .$_GET['project_name']. '/details.xml';
+		
+		
 		//$handle = opendir('Projects\\'.$_GET['project_name'].'\images')
 		if (file_exists($filename))
 		{
-			$fp = fopen("projects/" .$_GET['project_name']. "/details.xml", "r");
+			$fp = fopen($filename, "r");
 			while ($data = fread($fp, 4096))
 			{
 				xml_parse($parser, $data, feof($fp)) or die(sprintf("XML Error: %s at line %d", xml_error_string(xml_get_error_code($parser)) , xml_get_current_line_number($parser)));

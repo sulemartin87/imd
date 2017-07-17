@@ -13,9 +13,9 @@
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-wide w3-padding w3-card-2">
-    <a href="index.php" class="w3-bar-item w3-button"><b>IMD</b>  Architects</a>
+    <a href="index.php" class="w3-bar-item w3-button"><b>IMD</b>  Architects home</a>
     <!-- Float links to the right. Hide them on small screens -->
-    <div class="w3-right w3-hide-small">
+    <div class="w3-right w3-small">
       <a href="projects.php" class="w3-bar-item w3-button">Projects</a>
       <a href="index.php#about" class="w3-bar-item w3-button">About</a>
       <a href="index.php#contact" class="w3-bar-item w3-button">Contact</a>
@@ -28,17 +28,9 @@
 
 <!-- Page content -->
 <div class="w3-content w3-padding" style="max-width:1564px">
-
-  <!-- Project Section -->
-  <div class="w3-container w3-padding-32" id="projects">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Projects</h3>
-  </div>
-
-  <div class="w3-row-padding">
-  <?php
-                 
-               include 'database.php';
-			     if (mysqli_connect_errno())
+<?php
+include 'database.php';
+   if (mysqli_connect_errno())
                 {
                  echo "MySQLi Connection was not established: please refer to the documentation and user guide to fix this problem" . mysqli_connect_error();
                  
@@ -46,7 +38,16 @@
 
                 else
                 {
-					$sel = "select * from projects";
+					 
+					
+					
+echo '
+  <!-- Project Section -->
+  </br></br>
+  <div class="w3-container w3-padding-32" id="projects">
+    <!--<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Projects</h3>-->
+	 <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Individual Houses</h3>';
+	 $sel = "SELECT * FROM `projects` WHERE `project_type` = 'Individual Housing'";
 					$i = 0;
 					$run_user = mysqli_query($con, $sel);
 					if (mysqli_num_rows($run_user) > 0) 
@@ -56,9 +57,15 @@
 							echo '	<form action="project.php" method="GET">  
 									<button class="w3-col l3 m6 w3-margin-bottom w3-button w3-white w3-ripple" id="submit" type="submit">
 									  <div class="w3-display-container">
-										<div class="w3-display-topleft w3-black w3-padding">'.$row["project_name"].'</div>
-										<img src="Projects\\'.$row["project_name"].'\images\thumbnail.jpg" alt="House" style="width:100%">
-										 <input type="hidden" value="'.$row["project_name"].'" name="project_name" id="project_name" />	
+										<div class="w3-display-topleft w3-black w3-padding">'.$row["project_name"].'</div>';
+										$filename = 'Projects\\'.$row["project_name"].'\images\thumbnail.jpg';
+										if (file_exists($filename)) {
+										echo '<img src="Projects\\'.$row["project_name"].'\images\thumbnail.jpg" alt="House" style="width:100%">';
+										}else {
+											echo '<img src="Projects\thumbnail.jpg" alt="House" style="width:100%">';
+										}
+										
+										echo' <input type="hidden" value="'.$row["project_name"].'" name="project_name" id="project_name" />	
 									 </div>
 									  
 									</button>
@@ -73,6 +80,253 @@
 						
                       
 					}	
+	  echo '</div><div class="w3-container w3-padding-32" > <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Housing</h3>';
+	  $sel = "SELECT * FROM `projects` WHERE `project_type` = 'Housing'";
+					$i = 0;
+					$run_user = mysqli_query($con, $sel);
+					if (mysqli_num_rows($run_user) > 0) 
+					{
+						while($row = mysqli_fetch_assoc($run_user)) 
+						{
+							echo '	<form action="project.php" method="GET">  
+									<button class="w3-col l3 m6 w3-margin-bottom w3-button w3-white w3-ripple" id="submit" type="submit">
+									  <div class="w3-display-container">
+										<div class="w3-display-topleft w3-black w3-padding">'.$row["project_name"].'</div>';
+										$filename = 'Projects\\'.$row["project_name"].'\images\thumbnail.jpg';
+										if (file_exists($filename)) {
+										echo '<img src="Projects\\'.$row["project_name"].'\images\thumbnail.jpg" alt="House" style="width:100%">';
+										}else {
+											echo '<img src="Projects\thumbnail.jpg" alt="House" style="width:100%">';
+										}
+										
+										echo' <input type="hidden" value="'.$row["project_name"].'" name="project_name" id="project_name" />	
+									 </div>
+									  
+									</button>
+									</form>';
+									$i++;
+									if ($i == 4) {
+										echo '</div>
+										<div class="w3-row-padding">';
+										$i = 0;
+									}
+						}
+						
+                      
+					}
+	  echo '</div><div class="w3-container w3-padding-32" > <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Hotels / Lodges</h3>';
+	  $sel = "SELECT * FROM `projects` WHERE `project_type` = 'Hotel'";
+					$i = 0;
+					$run_user = mysqli_query($con, $sel);
+					if (mysqli_num_rows($run_user) > 0) 
+					{
+						while($row = mysqli_fetch_assoc($run_user)) 
+						{
+							
+							
+							echo '	<form action="project.php" method="GET">  
+									<button class="w3-col l3 m6 w3-margin-bottom w3-button w3-white w3-ripple" id="submit" type="submit">
+									  <div class="w3-display-container">
+										<div class="w3-display-topleft w3-black w3-padding">'.$row["project_name"].'</div>';
+										$filename = 'Projects\\'.$row["project_name"].'\images\thumbnail.jpg';
+										if (file_exists($filename)) {
+										echo '<img src="Projects\\'.$row["project_name"].'\images\thumbnail.jpg" alt="House" style="width:100%">';
+										}else {
+											echo '<img src="Projects\thumbnail.jpg" alt="House" style="width:100%">';
+										}
+										
+										echo' <input type="hidden" value="'.$row["project_name"].'" name="project_name" id="project_name" />	
+									 </div>
+									  
+									</button>
+									</form>';
+									$i++;
+									if ($i == 4) {
+										echo '</div>
+										<div class="w3-row-padding">';
+										$i = 0;
+									}
+						}
+						
+                      
+					}
+	    echo '</div><div class="w3-container w3-padding-32" > <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Offices</h3>';
+	   $sel = "SELECT * FROM `projects` WHERE `project_type` = 'Offices'";
+					$i = 0;
+					$run_user = mysqli_query($con, $sel);
+					if (mysqli_num_rows($run_user) > 0) 
+					{
+						while($row = mysqli_fetch_assoc($run_user)) 
+						{
+							echo '	<form action="project.php" method="GET">  
+									<button class="w3-col l3 m6 w3-margin-bottom w3-button w3-white w3-ripple" id="submit" type="submit">
+									  <div class="w3-display-container">
+										<div class="w3-display-topleft w3-black w3-padding">'.$row["project_name"].'</div>';
+										$filename = 'Projects\\'.$row["project_name"].'\images\thumbnail.jpg';
+										if (file_exists($filename)) {
+										echo '<img src="Projects\\'.$row["project_name"].'\images\thumbnail.jpg" alt="House" style="width:100%">';
+										}else {
+											echo '<img src="Projects\thumbnail.jpg" alt="House" style="width:100%">';
+										}
+										
+										echo' <input type="hidden" value="'.$row["project_name"].'" name="project_name" id="project_name" />	
+									 </div>
+									  
+									</button>
+									</form>';
+									$i++;
+									if ($i == 4) {
+										echo '</div>
+										<div class="w3-row-padding">';
+										$i = 0;
+									}
+						}
+						
+                      
+					}
+			  echo '</div><div class="w3-container w3-padding-32" > <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Shopping Malls</h3>';
+	   $sel = "SELECT * FROM `projects` WHERE `project_type` = 'Shopping Malls'";
+					$i = 0;
+					$run_user = mysqli_query($con, $sel);
+					if (mysqli_num_rows($run_user) > 0) 
+					{
+						while($row = mysqli_fetch_assoc($run_user)) 
+						{
+							echo '	<form action="project.php" method="GET">  
+									<button class="w3-col l3 m6 w3-margin-bottom w3-button w3-white w3-ripple" id="submit" type="submit">
+									  <div class="w3-display-container">
+										<div class="w3-display-topleft w3-black w3-padding">'.$row["project_name"].'</div>';
+										$filename = 'Projects\\'.$row["project_name"].'\images\thumbnail.jpg';
+										if (file_exists($filename)) {
+										echo '<img src="Projects\\'.$row["project_name"].'\images\thumbnail.jpg" alt="House" style="width:100%">';
+										}else {
+											echo '<img src="Projects\thumbnail.jpg" alt="House" style="width:100%">';
+										}
+										
+										echo' <input type="hidden" value="'.$row["project_name"].'" name="project_name" id="project_name" />	
+									 </div>
+									  
+									</button>
+									</form>';
+									$i++;
+									if ($i == 4) {
+										echo '</div>
+										<div class="w3-row-padding">';
+										$i = 0;
+									}
+						}
+						
+                      
+					}
+		  echo '</div><div class="w3-container w3-padding-32" > <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Religious Buildings</h3>';
+		 $sel = "SELECT * FROM `projects` WHERE `project_type` = 'Religious Buildings'";
+					$i = 0;
+					$run_user = mysqli_query($con, $sel);
+					if (mysqli_num_rows($run_user) > 0) 
+					{
+						while($row = mysqli_fetch_assoc($run_user)) 
+						{
+							echo '	<form action="project.php" method="GET">  
+									<button class="w3-col l3 m6 w3-margin-bottom w3-button w3-white w3-ripple" id="submit" type="submit">
+									  <div class="w3-display-container">
+										<div class="w3-display-topleft w3-black w3-padding">'.$row["project_name"].'</div>';
+										$filename = 'Projects\\'.$row["project_name"].'\images\thumbnail.jpg';
+										if (file_exists($filename)) {
+										echo '<img src="Projects\\'.$row["project_name"].'\images\thumbnail.jpg" alt="House" style="width:100%">';
+										}else {
+											echo '<img src="Projects\thumbnail.jpg" alt="House" style="width:100%">';
+										}
+										
+										echo' <input type="hidden" value="'.$row["project_name"].'" name="project_name" id="project_name" />	
+									 </div>
+									  
+									</button>
+									</form>';
+									$i++;
+									if ($i == 4) {
+										echo '</div>
+										<div class="w3-row-padding">';
+										$i = 0;
+									}
+						}
+						
+                      
+					}
+					
+					
+					
+		echo '</div><div class="w3-container w3-padding-32" > <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Institutions</h3>';
+		 $sel = "SELECT * FROM `projects` WHERE `project_type` = 'Institutions'";
+					$i = 0;
+					$run_user = mysqli_query($con, $sel);
+					if (mysqli_num_rows($run_user) > 0) 
+					{
+						while($row = mysqli_fetch_assoc($run_user)) 
+						{
+							echo '	<form action="project.php" method="GET">  
+									<button class="w3-col l3 m6 w3-margin-bottom w3-button w3-white w3-ripple" id="submit" type="submit">
+									  <div class="w3-display-container">
+										<div class="w3-display-topleft w3-black w3-padding">'.$row["project_name"].'</div>';
+										$filename = 'Projects\\'.$row["project_name"].'\images\thumbnail.jpg';
+										if (file_exists($filename)) {
+										echo '<img src="Projects\\'.$row["project_name"].'\images\thumbnail.jpg" alt="House" style="width:100%">';
+										}else {
+											echo '<img src="Projects\thumbnail.jpg" alt="House" style="width:100%">';
+										}
+										
+										echo' <input type="hidden" value="'.$row["project_name"].'" name="project_name" id="project_name" />	
+									 </div>
+									  
+									</button>
+									</form>';
+									$i++;
+									if ($i == 4) {
+										echo '</div>
+										<div class="w3-row-padding">';
+										$i = 0;
+									}
+						}
+						
+                      
+					}
+		    echo '</div><div class="w3-container w3-padding-32" > <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Government Buildings</h3>';
+		 $sel = "SELECT * FROM `projects` WHERE `project_type` = 'Government Buildings'";
+					$i = 0;
+					$run_user = mysqli_query($con, $sel);
+					if (mysqli_num_rows($run_user) > 0) 
+					{
+						while($row = mysqli_fetch_assoc($run_user)) 
+						{
+							echo '	<form action="project.php" method="GET">  
+									<button class="w3-col l3 m6 w3-margin-bottom w3-button w3-white w3-ripple" id="submit" type="submit">
+									  <div class="w3-display-container">
+										<div class="w3-display-topleft w3-black w3-padding">'.$row["project_name"].'</div>';
+										$filename = 'Projects\\'.$row["project_name"].'\images\thumbnail.jpg';
+										if (file_exists($filename)) {
+										echo '<img src="Projects\\'.$row["project_name"].'\images\thumbnail.jpg" alt="House" style="width:100%">';
+										}else {
+											echo '<img src="Projects\thumbnail.jpg" alt="House" style="width:100%">';
+										}
+										
+										echo' <input type="hidden" value="'.$row["project_name"].'" name="project_name" id="project_name" />	
+									 </div>
+									  
+									</button>
+									</form>';
+									$i++;
+									if ($i == 4) {
+										echo '</div>
+										<div class="w3-row-padding">';
+										$i = 0;
+									}
+						}
+						
+                      
+					}
+					
+					 echo ' </div>
+					
+  <div class="w3-row-padding"> </div>'; 
 				}
 			   
 	?>		 
