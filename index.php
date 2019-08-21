@@ -96,7 +96,8 @@
 			  else
 				{
 				$sel = "select * from projects ORDER BY RAND() LIMIT 8 ";
-				$i = 0;
+                $i = 0;
+                $projects = null;
 				$run_user = mysqli_query($con, $sel);
 				if (mysqli_num_rows($run_user) > 0)
 					{
